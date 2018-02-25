@@ -4,8 +4,8 @@
  * @brief Function definitions for a double linked list API
  **/
 
-#ifndef LINKED_LIST_HEAD
-#define LINKED_LIST_HEAD
+#ifndef LINKED_LIST_API
+#define LINKED_LIST_API
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -30,7 +30,7 @@ typedef struct ListNode {
  * Member 'head' is a pointer to the first ListNode in the List
  * Member 'tail' is a pointer to the last ListNode in the List
  * Member 'length' is used to keep track of the length of the List
- * Member 'toString' is a function pointer to convert a piece of data into a string
+ * Member 'printData' is a function pointer to convert a piece of data into a string
  * Member 'destroyData' is a function pointer to destroy a piece of data
  * Member 'compareData' is a function pointer to compare to pieces of data
  **/

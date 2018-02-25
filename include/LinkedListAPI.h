@@ -73,7 +73,7 @@ List * createList(char * (*printData)(void * data), void (*destroyData)(void * d
 
 /**
  * Inserts an arbitrary piece of data into the front of the List data structure
- * @pre A valid List structure must exist for the data to be inserted into must exist
+ * @pre A valid List structure must exist for the data to be inserted into
  * @param 'list' is a pointer to the List that the data will be inserted into
  * @param 'data' is a pointer to the data to be inserted
  * @return EXIT_SUCCESS is returned if the insertion is successful; EXIT_FAILURE on failure
@@ -82,7 +82,7 @@ int insertListFront(List * list, void * data);
 
 /**
  * Inserts an arbitrary piece of data into the back of the List data structure
- * @pre A valid List structure must exist for the data to be inserted intomust exist
+ * @pre A valid List structure must exist for the data to be inserted into
  * @param 'list' is a pointer to the List that the data will be inserted into
  * @param 'data' is a pointer to the data to be inserted
  * @return EXIT_SUCCESS is returned if the insertion is successful; EXIT_FAILURE on failure
@@ -91,7 +91,7 @@ int insertListBack(List * list, void * data);
 
 /**
  * Inserts an arbitrary piece of data into a sorted List data structure
- * @pre A valid List structure must exist for the data to be inserted intomust exist
+ * @pre A valid List structure must exist for the data to be inserted into
  * @param 'list' is a pointer to the List that the data will be inserted into
  * @param 'data' is a pointer to the data to be inserted
  * @return EXIT_SUCCESS is returned if the insertion is successful; EXIT_FAILURE on failure
@@ -100,7 +100,7 @@ int insertSortedList(List * list, void * data);
 
 /**
  * Destroys the entire list data structure and all of its elements
- * @pre A valid List structure must exist to be destroyed must exist
+ * @pre A valid List structure must exist to be destroyed
  * @param 'list' is a pointer to the List that will be destroyed
  * @return EXIT_SUCCESS is returned if the destruction is successful; EXIT_FAILURE on failure
  **/
@@ -108,7 +108,7 @@ int destroyList(List * list);
 
 /**
  * Removes the first element from the List structure
- * @pre A vali List structure from which data will be removed from must exist
+ * @pre A valid List structure from which data will be removed from must exist
  * @param 'list' is a pointer to the List that will be destroyed
  * @return EXIT_SUCCESS is returned if the removal is successful; EXIT_FAILURE on failure
  **/

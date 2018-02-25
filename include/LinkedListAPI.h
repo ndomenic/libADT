@@ -109,7 +109,7 @@ int destroyList(List * list);
 /**
  * Removes the first element from the List structure
  * @pre A valid List structure from which data will be removed from must exist
- * @param 'list' is a pointer to the List that will be destroyed
+ * @param 'list' is a pointer to the List to remove the data from
  * @return EXIT_SUCCESS is returned if the removal is successful; EXIT_FAILURE on failure
  **/
 int removeListFront(List * list);
@@ -117,7 +117,7 @@ int removeListFront(List * list);
 /**
  * Removes the last element from the List structure
  * @pre A valid List structure from which data will be removed from must exist
- * @param 'list' is a pointer to the List that will be destroyed
+ * @param 'list' is a pointer to the List to remove the data from
  * @return EXIT_SUCCESS is returned if the removal is successful; EXIT_FAILURE on failure
  **/
 int removeListBack(List * list);
@@ -125,7 +125,7 @@ int removeListBack(List * list);
 /**
  * Removes the specified element from the List structure
  * @pre A valid List structure from which data will be removed from must exist
- * @param 'list' is a pointer to the List that will be destroyed
+ * @param 'list' is a pointer to the List to remove the data from
  * @param 'data' is a pointer to the data that is to be removed from the list
  * @return EXIT_SUCCESS is returned if the removal is successful; EXIT_FAILURE on failure
  **/

@@ -9,7 +9,7 @@
 ListNode * createListNode(void * data) {
     ListNode * node = malloc(sizeof(ListNode));
     if (!node) {
-    	return NULL;
+        return NULL;
     }
 
     node->data = data;
@@ -20,23 +20,23 @@ ListNode * createListNode(void * data) {
 }
 
 List * createList(char * (*printData)(void * data), void (*destroyData)(void * data), int (*compareData)(const void * a, const void * b)) {
-	List * list = malloc(sizeof(List));
-	if (!list) {
-		return NULL;
-	}
+    List * list = malloc(sizeof(List));
+    if (!list) {
+        return NULL;
+    }
 
-	assert(printData);
-	assert(destroyData);
-	assert(compareData);
+    assert(printData);
+    assert(destroyData);
+    assert(compareData);
 
-	list->head = NULL;
-	list->tail = NULL;
-	list->length = 0;
-	list->printData = printData;
-	list->destroyData = destroyData;
-	list->compareData = compareData;
+    list->head = NULL;
+    list->tail = NULL;
+    list->length = 0;
+    list->printData = printData;
+    list->destroyData = destroyData;
+    list->compareData = compareData;
 
-	return list;
+    return list;
 }
 
 int insertListFront(List * list, void * data) {
@@ -46,7 +46,7 @@ int insertListFront(List * list, void * data) {
 
     ListNode * node = createListNode(data);
     if (!node) {
-    	return EXIT_FAILURE;
+        return EXIT_FAILURE;
     }
 
     if (!list->head && !list->tail) {
@@ -71,7 +71,7 @@ int insertListBack(List * list, void * data) {
 
     ListNode * node = createListNode(data);
     if (!node) {
-    	return EXIT_FAILURE;
+        return EXIT_FAILURE;
     }
 
     if (!list->head && !list->tail) {
@@ -90,7 +90,7 @@ int insertListBack(List * list, void * data) {
 }
 
 int insertSortedList(List * list, void * data) {
-	if (!list) {
+    if (!list) {
         return EXIT_FAILURE;
     }
 
@@ -108,12 +108,12 @@ int insertSortedList(List * list, void * data) {
 
     ListNode * node = createListNode(data);
     if (!node) {
-    	return EXIT_FAILURE;
+        return EXIT_FAILURE;
     }
     ListNode * temp = list->head;
 
     while (temp) {
-    	if (list->compareData(node->data, temp->data) > 0 && list->compareData(node->data, temp->next->data) <= 0) {
+        if (list->compareData(data, temp->data) > 0 || list->compareData(data, temp->next->data) <= 0) {
             node->next = temp->next;
             temp->next->prev = node;
             node->prev = temp;
@@ -121,12 +121,12 @@ int insertSortedList(List * list, void * data) {
             list->length++;
             return EXIT_SUCCESS;
         }
-    	temp = temp->next;
+        temp = temp->next;
     }
 
     free(node);
     node = NULL;
-
+    
     return EXIT_FAILURE;
 }
 
@@ -154,37 +154,39 @@ int destroyList(List * list) {
 }
 
 int removeListFront(List * list) {
-	if (!list || list->length == 0) {
+    if (!list || list->length == 0) {
         return EXIT_FAILURE;
     }
 
     ListNode * temp = list->head;
     list->head = temp->next;
     if (list->head) {
-    	list->head->prev = NULL;
+        list->head->prev = NULL;
     }
 
     list->destroyData(temp->data);
     free(temp);
     temp = NULL;
+    list->length--;
 
     return EXIT_SUCCESS;
 }
 
 int removeListBack(List * list) {
-	if (!list || list->length == 0) {
+    if (!list || list->length == 0) {
         return EXIT_FAILURE;
     }
 
     ListNode * temp = list->tail;
     list->head = temp->prev;
     if (list->tail) {
-    	list->tail->next = NULL;
+        list->tail->next = NULL;
     }
 
     list->destroyData(temp->data);
     free(temp);
     temp = NULL;
+    list->length--;
 
     return EXIT_SUCCESS;
 }
@@ -218,6 +220,7 @@ int removeFromList(List * list, void * data) {
             list->destroyData(temp->data);
             free(temp);
             temp = NULL;
+            list->length--;
 
             return EXIT_SUCCESS;
         }
@@ -244,7 +247,7 @@ void * getFromListBack(List * list) {
 }
 
 size_t getListIndex(List * list, void * data) {
-	if (!list || list->length == 0 || !data) {
+    if (!list || list->length == 0 || !data) {
         return -1;
     }
 
@@ -252,19 +255,19 @@ size_t getListIndex(List * list, void * data) {
     size_t counter = 0;
 
     while (temp) {
-    	if (list->compareData(temp->data, data) == 0) {
-    		return counter;
-    	}
+        if (list->compareData(temp->data, data) == 0) {
+            return counter;
+        }
 
-    	counter++;
-    	temp = temp->next;
+        counter++;
+        temp = temp->next;
     }
 
     return -1;
 }
 
 void * getListData(List * list, size_t index) {
-	if (!list || list->length == 0 || index < 0) {
+    if (!list || list->length == 0 || index < 0) {
         return NULL;
     }
 
@@ -272,12 +275,12 @@ void * getListData(List * list, size_t index) {
     size_t counter = 0;
 
     while (temp) {
-    	if (counter == index) {
-    		return temp->data;
-    	}
+        if (counter == index) {
+            return temp->data;
+        }
 
-    	counter++;
-    	temp = temp->next;
+        counter++;
+        temp = temp->next;
     }
 
 
@@ -285,117 +288,117 @@ void * getListData(List * list, size_t index) {
 }
 
 bool listContains(List * list, void * data) {
-	if (!list || list->length == 0 || !data) {
+    if (!list || list->length == 0 || !data) {
         return false;
     }
 
     ListNode * temp = list->head;
     while (temp) {
-    	if (list->compareData(temp->data, data) == 0) {
-    		return true;
-    	}
+        if (list->compareData(temp->data, data) == 0) {
+            return true;
+        }
 
-    	temp = temp->next;
+        temp = temp->next;
     }
 
     return false;
 }
 
 char * printList(List * list) {
-	char * str = malloc(sizeof(char));
-	if (!str) {
-		return NULL;
-	}
-	strcpy(str, "");
-	char * tempPtr, * tempStr;
+    char * str = malloc(sizeof(char));
+    if (!str) {
+        return NULL;
+    }
+    strcpy(str, "");
+    char * tempPtr, * tempStr;
 
-	ListNode * temp = list->head;
-	while(temp) {
-		tempStr = list->printData(temp->data);
+    ListNode * temp = list->head;
+    while(temp) {
+        tempStr = list->printData(temp->data);
 
-		tempPtr = realloc(str, sizeof(char) * (strlen(str) + strlen(tempStr)));
-		if (!tempPtr) {
-			free(str);
-			return NULL;
-		}
-		str = tempPtr;
+        tempPtr = realloc(str, sizeof(char) * (strlen(str) + strlen(tempStr) + 2));
+        if (!tempPtr) {
+            free(str);
+            return NULL;
+        }
+        str = tempPtr;
 
-		strcat(str, tempStr);
-		free(tempStr);
+        strcat(str, tempStr);
+        free(tempStr);
 
-		temp = temp->next;
-	}
+        temp = temp->next;
+    }
 
-	return str;
+    return str;
 }
 
 char * printListReverse(List * list) {
-	char * str = malloc(sizeof(char));
-	if (!str) {
-		return NULL;
-	}
-	strcpy(str, "");
-	char * tempPtr, * tempStr;
+    char * str = malloc(sizeof(char));
+    if (!str) {
+        return NULL;
+    }
+    strcpy(str, "");
+    char * tempPtr, * tempStr;
 
-	ListNode * temp = list->tail;
-	while(temp) {
-		tempStr = list->printData(temp->data);
+    ListNode * temp = list->tail;
+    while(temp) {
+        tempStr = list->printData(temp->data);
 
-		tempPtr = realloc(str, sizeof(char) * (strlen(str) + strlen(tempStr)));
-		if (!tempPtr) {
-			free(str);
-			return NULL;
-		}
-		str = tempPtr;
+        tempPtr = realloc(str, sizeof(char) * (strlen(str) + strlen(tempStr)));
+        if (!tempPtr) {
+            free(str);
+            return NULL;
+        }
+        str = tempPtr;
 
-		strcat(str, tempStr);
-		free(tempStr);
+        strcat(str, tempStr);
+        free(tempStr);
 
-		temp = temp->prev;
-	}
+        temp = temp->prev;
+    }
 
-	return str;
+    return str;
 }
 
 ListIterator createListIterator(List * list) {
-	ListIterator iterator;
+    ListIterator iterator;
 
-	if (!list) {
-		iterator.list = NULL;
-		iterator.currentNode = NULL;
-	} else {
-		iterator.list = list;
-		iterator.currentNode = list->head;
-	}
+    if (!list) {
+        iterator.list = NULL;
+        iterator.currentNode = NULL;
+    } else {
+        iterator.list = list;
+        iterator.currentNode = list->head;
+    }
 
-	return iterator;
+    return iterator;
 }
 
 void * listIterateNext(ListIterator * iterator) {
-	if (!iterator || !iterator->currentNode || !iterator->currentNode->next) {
-		return NULL;
-	}
+    if (!iterator || !iterator->currentNode || !iterator->currentNode->next) {
+        return NULL;
+    }
 
-	ListNode * temp = iterator->currentNode;
-	iterator->currentNode = iterator->currentNode->next;
-	return temp->data;
+    ListNode * temp = iterator->currentNode;
+    iterator->currentNode = iterator->currentNode->next;
+    return temp->data;
 }
 
 void * listIteratePrev(ListIterator * iterator) {
-	if (!iterator || !iterator->currentNode || !iterator->currentNode->prev) {
-		return NULL;
-	}
+    if (!iterator || !iterator->currentNode || !iterator->currentNode->prev) {
+        return NULL;
+    }
 
-	ListNode * temp = iterator->currentNode;
-	iterator->currentNode = iterator->currentNode->prev;
-	return temp->data;
+    ListNode * temp = iterator->currentNode;
+    iterator->currentNode = iterator->currentNode->prev;
+    return temp->data;
 }
 
 int resetListIterator(ListIterator * iterator) {
-	if (!iterator) {
-		return EXIT_FAILURE;
-	}
+    if (!iterator) {
+        return EXIT_FAILURE;
+    }
 
-	iterator->currentNode = iterator->list->head;
-	return EXIT_SUCCESS;
+    iterator->currentNode = iterator->list->head;
+    return EXIT_SUCCESS;
 }
